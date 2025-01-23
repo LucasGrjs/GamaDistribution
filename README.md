@@ -6,7 +6,9 @@ Proof of concepts and experimentations for the article : "Distribution Model: Se
 Java 17
 
 mpirun (Open MPI) 4.1.4 (https://www.open-mpi.org/software/ompi/v4.1/)
+
 Apache Maven 3.8.6
+
 Java Binding for Open MPI (https://www.open-mpi.org/faq/?category=java)
 
 
