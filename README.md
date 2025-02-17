@@ -1,6 +1,6 @@
 # DistributionModel
 
-Proof of concepts and experimentations for the article : "Distribution Model: Separation of Concerns To Facilitate the Distribution ofAgent-Based Models" for IJCAI 2025 [https://2025.ijcai.org/](https://2025.ijcai.org/)
+Proof of concepts and experimentations for distribution model
 
 # Requirements  
 Java 17
@@ -20,7 +20,7 @@ cd gama
 
 ./travis/build.sh # compile the project (can take some time)
 
-cd ../gama.experimental/gama.experimental.proxy/models/proxy/ # where to start the model to execute
+cd ../gama.experimental/gama.experimental.proxy/models/proxy/ # where to start the model execution
 
 # How to start examples : N > 2 and < 6*  (* the limit is the number of core on your machine)
 
