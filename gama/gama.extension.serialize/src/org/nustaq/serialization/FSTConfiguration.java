@@ -59,6 +59,7 @@ import org.nustaq.serialization.util.FSTInputStream;
 import org.nustaq.serialization.util.FSTInt2ObjectMapFactory;
 import org.nustaq.serialization.util.FSTUtil;
 
+import gama.dev.DEBUG;
 import gama.gaml.compilation.kernel.GamaClassLoader;
 
 /**
@@ -815,9 +816,10 @@ public class FSTConfiguration {
 	 */
 	public Object asObject(final byte b[]) {
 		try {
+			DEBUG.OUT("asObject");
 			return getObjectInput(b).readObject();
 		} catch (Exception e) {
-			System.out.println("unable to decode:" + new String(b, 0, 0, Math.min(b.length, 100)));
+			System.out.println("unable to decode:" + b.getClass());//new String(b, 0, 0, Math.min(b.length, 100)));
 			FSTUtil.<RuntimeException> rethrow(e);
 		}
 		return null;

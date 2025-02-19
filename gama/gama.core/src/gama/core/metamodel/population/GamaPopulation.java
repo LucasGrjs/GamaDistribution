@@ -572,7 +572,7 @@ public class GamaPopulation<T extends IAgent> extends GamaList<T> implements IPo
 			final boolean toBeScheduled, final RemoteSequence sequence) throws GamaRuntimeException {
 		
 
-		DEBUG.OUT("createAgents222222 initvlaues " + initialValues);
+		//DEBUG.OUT("createAgents222222 initvlaues " + initialValues);
 		if (number == 0) return GamaListFactory.EMPTY_LIST;
 		final IList<T> list = GamaListFactory.create(getGamlType().getContentType(), number);
 		final IAgentConstructor<T> constr = species.getDescription().getAgentConstructor();

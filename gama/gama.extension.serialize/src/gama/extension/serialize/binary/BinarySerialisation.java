@@ -25,6 +25,7 @@ import gama.core.runtime.GAMA;
 import gama.core.runtime.IScope;
 import gama.core.runtime.exceptions.GamaRuntimeException;
 import gama.core.util.ByteArrayZipper;
+import gama.dev.DEBUG;
 
 /**
  * The Class BinarySerialisationReader.
@@ -33,6 +34,11 @@ import gama.core.util.ByteArrayZipper;
  * @date 31 oct. 2023
  */
 public class BinarySerialisation implements ISerialisationConstants {
+	
+	static
+	{
+		DEBUG.OFF();
+	}
 
 	/** The processor. */
 	private static BinarySerialiser PROCESSOR = new BinarySerialiser();
@@ -80,9 +86,11 @@ public class BinarySerialisation implements ISerialisationConstants {
 	 * @date 31 oct. 2023
 	 */
 	public static Object createFromString(final IScope scope, final String string) {
+		//DEBUG.OUT("createFromString ");
 		if (string == null || string.isBlank()) return null;
 		try {
 			byte[] all = string.getBytes(ISerialisationConstants.STRING_BYTE_ARRAY_CHARSET);
+			//DEBUG.OUT("all all all ");
 			return createFromBytes(scope, all);
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -106,6 +114,7 @@ public class BinarySerialisation implements ISerialisationConstants {
 	 * @date 31 oct. 2023
 	 */
 	public static Object createFromBytes(final IScope scope, final byte[] bytes) {
+		//DEBUG.OUT("createFromBytes binary seri ");
 		byte type = bytes[0];
 		if (!isSerialisationHeader(type)) throw GamaRuntimeException.error("Not a GAMA serialisation record", scope);
 		boolean zip = bytes[1] == COMPRESSED;

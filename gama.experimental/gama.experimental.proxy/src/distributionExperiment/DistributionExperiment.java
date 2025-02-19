@@ -47,7 +47,7 @@ public class DistributionExperiment extends ExperimentAgent
 {
 	static
 	{
-		DEBUG.ON();
+		//DEBUG.ON();
 		//DEBUG.FORCE_ON();
 	}
 	

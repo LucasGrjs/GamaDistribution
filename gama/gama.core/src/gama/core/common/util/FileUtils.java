@@ -172,7 +172,7 @@ public class FileUtils {
 			}
 		}
 
-		DEBUG.OUT("Falling back to the old JavaIO based search");
+		//DEBUG.OUT("Falling back to the old JavaIO based search");
 		return constructAbsoluteFilePathAlternate(scope, fp, mustExist);
 	}
 

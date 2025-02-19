@@ -24,7 +24,7 @@ public class ActionExecuter {
 	
 	static
 	{
-		DEBUG.OFF();
+		DEBUG.ON();
 	}
 
 	/** The Constant BEGIN. */
@@ -123,7 +123,7 @@ public class ActionExecuter {
 	 * Execute one shot actions.
 	 */
 	public void executeOneShotActions() {
-		DEBUG.OUT("executeOneShotActions");
+		//DEBUG.OUT("executeOneShotActions");
 		if (scope.interrupted()) return;
 		try {
 			executeActions(ONE_SHOT);
@@ -140,9 +140,9 @@ public class ActionExecuter {
 	 */
 	private void executeActions(final int type) {
 
-		DEBUG.OUT("executeActions " + type);
+		//DEBUG.OUT("executeActions " + type);
 		for (final IExecutable action : actions[type]) { 
-			DEBUG.OUT("actionaction " + action);
+			//DEBUG.OUT("actionaction " + action);
 			if (!scope.interrupted()) { 
 				action.executeOn(scope); 
 			} 
@@ -157,12 +157,14 @@ public class ActionExecuter {
 	 */
 	public synchronized void executeOneAction(final IExecutable action) {
 
-		DEBUG.OUT("executeOneAction " + action);
+		//DEBUG.OUT("executeOneAction " + action);
 		final boolean paused = scope.isPaused();
+		DEBUG.OUT("paused " + paused);
 		if (paused) {
-			DEBUG.OUT("actionaction22 " + action);
+			//DEBUG.OUT("actionaction22 " + action);
 			action.executeOn(scope);
 		} else {
+			//DEBUG.OUT("insertOneShotAction " + action);
 			insertOneShotAction(action);
 		}
 	}

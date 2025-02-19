@@ -63,7 +63,7 @@ public class FSTBinaryProcessor implements ISerialisationConstants {
 	
 	static
 	{
-		DEBUG.OFF();
+		DEBUG.ON();
 	}
 	
 	/** The fst. */
@@ -149,7 +149,9 @@ public class FSTBinaryProcessor implements ISerialisationConstants {
 	 */
 	public Object createObjectFromBytes(final IScope newScope, final byte[] input) {
 		try {
+			DEBUG.OUT("createObjectFromBytes ");
 			scope = newScope;
+			DEBUG.OUT("scope " + scope);
 			return fst.asObject(input);
 		} catch (Exception e) {
 			throw GamaRuntimeException.create(e, scope);
@@ -170,9 +172,15 @@ public class FSTBinaryProcessor implements ISerialisationConstants {
 	 */
 	public IAgent createAgentFromBytes(final IScope newScope, final byte[] input) {
 		try {
+			DEBUG.OUT("createAgentFromBytes ");
 			scope = newScope;
+			DEBUG.OUT("scope " + scope);
 			Object o = fst.asObject(input);
-			if (o instanceof SerialisedAgent sa) return sa.recreateIn(scope);
+			if (o instanceof SerialisedAgent sa)
+			{
+				DEBUG.OUT("SerialisedAgent " + sa);
+				return sa.recreateIn(scope);
+			}
 			return null;
 		} catch (Exception e) {
 			throw GamaRuntimeException.create(e, scope);

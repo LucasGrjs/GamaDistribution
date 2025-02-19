@@ -44,7 +44,7 @@ public class EndActionOneShotCreateCopy implements IExecutable
 
 	static
 	{
-		DEBUG.ON();
+		//DEBUG.ON();
 	}
 	
 	IMap<Integer, List<?>> proxyToCopy;

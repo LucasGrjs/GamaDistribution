@@ -170,11 +170,11 @@ public class BinarySerialiser implements ISerialisationConstants {
 	 */
 	public IAgent createAgentFromBytes(final IScope newScope, final byte[] input) {
 		try {
-			DEBUG.OUT("createAgentFromBytes ");
+			//DEBUG.OUT("createAgentFromBytes ");
 			scope = newScope;
 			Object o = fst.asObject(input);
 			if (o instanceof SerialisedAgent sa) {
-				DEBUG.OUT("o instanceof SerialisedAgent sa " + sa);	
+				//DEBUG.OUT("o instanceof SerialisedAgent sa " + sa);	
 				return sa.recreateIn(scope);
 			}
 			return null;
@@ -333,40 +333,40 @@ public class BinarySerialiser implements ISerialisationConstants {
 
 			@Override
 			public void serialise(final FSTObjectOutput out, final SerialisedAgent o) throws Exception {
-				DEBUG.OUT("serialise SerialisedAgent" + o);
-				DEBUG.OUT("serialise SerialisedAgent uuid " + o.uuid());
-				DEBUG.OUT("serialise SerialisedAgent uuid class " + o.uuid().getClass());
+				//DEBUG.OUT("serialise SerialisedAgent" + o);
+				//DEBUG.OUT("serialise SerialisedAgent uuid " + o.uuid());
+				//DEBUG.OUT("serialise SerialisedAgent uuid class " + o.uuid().getClass());
 				
-				DEBUG.OUT("1111 " + o.index());
+				//DEBUG.OUT("1111 " + o.index());
 				out.writeInt(o.index());
-				DEBUG.OUT("2222 " + o.species());
+				//DEBUG.OUT("2222 " + o.species());
 				out.writeStringUTF(o.species());
-				DEBUG.OUT("3333 " + o.attributes());
+				//DEBUG.OUT("3333 " + o.attributes());
 				out.writeObject(o.attributes());
-				DEBUG.OUT("4444 " + o.innerPopulations());
+				//DEBUG.OUT("4444 " + o.innerPopulations());
 				out.writeObject(o.innerPopulations());
-				DEBUG.OUT("5555 " + o.uuid().toString());
+				//DEBUG.OUT("5555 " + o.uuid().toString());
 				out.writeStringUTF(o.uuid().toString());
 			}
 
 			@SuppressWarnings ("unchecked")
 			@Override
 			public SerialisedAgent deserialise(final IScope scope, final FSTObjectInput in) throws Exception {
-				DEBUG.OUT("deserialise SerialisedAgent");
-				DEBUG.OUT("deserialise nonon SerialisedAgent ");
+				//DEBUG.OUT("deserialise SerialisedAgent");
+				//DEBUG.OUT("deserialise nonon SerialisedAgent ");
 				
 				int one = in.readInt();
-				DEBUG.OUT("one " + one);
+				//DEBUG.OUT("one " + one);
 				String two = in.readStringUTF();
-				DEBUG.OUT("two " + two);
+				//DEBUG.OUT("two " + two);
 				Map<String, Object> three =  (Map<String, Object>) in.readObject();
-				DEBUG.OUT("three " + three);
+				//DEBUG.OUT("three " + three);
 				Map<String, ISerialisedPopulation> four = (Map<String, ISerialisedPopulation>) in.readObject();
-				DEBUG.OUT("four " + four);
+				//DEBUG.OUT("four " + four);
 				String five = in.readStringUTF();
-				DEBUG.OUT("fivefivefivefivefive " + five);
+				//DEBUG.OUT("fivefivefivefivefive " + five);
 				UUID uuid = UUID.fromString(five);;
-				DEBUG.OUT("fivefivefivefivefive nenenene " + uuid);
+				//DEBUG.OUT("fivefivefivefivefive nenenene " + uuid);
 				
 				return new SerialisedAgent(one, two, three, four, uuid);
 			}

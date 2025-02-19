@@ -1,0 +1,64 @@
+# This workflow will build a package using Maven and then publish it to GitHub packages when a release is created
+# For more information see: https://github.com/actions/setup-java#apache-maven-with-a-settings-path
+
+name: Github Travis
+
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+  push:
+    branches: [ GAMA_1.9.2 ]
+  workflow_dispatch:  # For manual trigger
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Adopt OpenJDK 17
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+          java-package: jdk
+      
+      - name: Prepare build
+        run: |
+          # mvn
+          sudo chmod +x $GITHUB_WORKSPACE/*.sh 
+          bash custom_mvn.sh
+          cat ~/.m2/settings.xml 
+          bash decrypt_secret.sh
+        env:
+          MSG: ${ github.event.head_commit.message } 
+          SSH_USER_PWD: ${{ secrets.USER_PWD }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          GITHUB_TOKEN: ${{ github.token }}
+          SSHPASS: ${{ secrets.USER_PWD }}
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          TRAVIS_COMMIT: ${ GITHUB_SHA }
+          TRAVIS_EVENT_TYPE: ${{ github.event_name }}
+          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+
+      - name: Import JAR signing keystore
+        run: |
+          echo "$GAMA_KEYSTORE_BASE64" | base64 --decode > ~/gama.keystore
+          # Config file
+          sed -i "s/<storepass>GAMA_STORE/<storepass>$GAMA_STORE/g" $GITHUB_WORKSPACE/msi.gama.experimental.parent/pom_footer.xml
+        env:
+          GAMA_KEYSTORE_BASE64: ${{ secrets.GAMA_KEYSTORE_BASE64 }}
+          GAMA_STORE: ${{ secrets.GAMA_KEYSTORE_STOREPASS }}
+
+      - name: Build with Maven 
+        run: bash $GITHUB_WORKSPACE/travis_build.sh 
+        env:
+          MSG: ${ github.event.head_commit.message } 
+          SSH_USER_PWD: ${{ secrets.USER_PWD }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          GITHUB_TOKEN: ${{ github.token }}
+          SSHPASS: ${{ secrets.USER_PWD }}
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          TRAVIS_COMMIT: ${ GITHUB_SHA }
+          TRAVIS_EVENT_TYPE: ${{ github.event_name }}
+          

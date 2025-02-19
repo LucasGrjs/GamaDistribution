@@ -464,7 +464,7 @@ public class CreateStatement extends AbstractStatementSequence implements IState
 		for (final ICreateDelegate delegate : DELEGATES) {
 			if (delegate.acceptSource(scope, source)) {
 				delegate.createFrom(scope, inits, max, source, init, this);
-				DEBUG.OUT("initsinitsinits " + inits);
+				//DEBUG.OUT("initsinitsinits " + inits);
 				if (delegate.handlesCreation()) { agents = delegate.createAgents(scope, pop, inits, this, sequence); }
 				break;
 			}
@@ -531,7 +531,7 @@ public class CreateStatement extends AbstractStatementSequence implements IState
 			if (exp.isScheduled()) { shouldBeScheduled = true; }
 		}
 		
-		DEBUG.OUT("createAgents from create statemtn " + inits);
+		//DEBUG.OUT("createAgents from create statemtn " + inits);
 		// As we are in the create statement, the agents are not restored
 		final IList<? extends IAgent> list =
 				population.createAgents(scope, inits.size(), inits, false, shouldBeScheduled, sequence);

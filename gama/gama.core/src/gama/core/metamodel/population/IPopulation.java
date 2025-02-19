@@ -234,7 +234,7 @@ public interface IPopulation<T extends IAgent>
 		DEBUG.ON();
 		
 		
-		DEBUG.OUT("createAgentscreateAgents " + initialValues);
+		//DEBUG.OUT("createAgentscreateAgents " + initialValues);
 		return this.createAgents(scope, number, initialValues, isRestored, toBeScheduled, null);
 	}
 

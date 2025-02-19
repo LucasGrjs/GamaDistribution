@@ -92,9 +92,9 @@ public class MPISkill extends Skill
 		final int dest = ((Integer) scope.getArg(IMPISkill.DEST, IType.INT)).intValue();
 		final int stag = ((Integer) scope.getArg(IMPISkill.STAG, IType.INT)).intValue();
 
-		DEBUG.LOG("mesg = " + mesg);
-		DEBUG.LOG("dest = " + dest);
-		DEBUG.LOG("stag = " + stag);
+		//DEBUG.LOG("mesg = " + mesg);
+		//DEBUG.LOG("dest = " + dest);
+		//DEBUG.LOG("stag = " + stag);
 		MPIFunctions.MPI_SEND(scope, mesg, dest, stag);
 	}
 
@@ -118,8 +118,8 @@ public class MPISkill extends Skill
 		final int source = ((Integer) scope.getArg(IMPISkill.SOURCE, IType.INT)).intValue();
 		final int rtag = ((Integer) scope.getArg(IMPISkill.RTAG, IType.INT)).intValue();
 
-		DEBUG.OUT("source = " + source);
-		DEBUG.OUT("rtag = " + rtag);
+		//DEBUG.OUT("source = " + source);
+		//DEBUG.OUT("rtag = " + rtag);
 		return MPIFunctions.MPI_RECV(scope, source, rtag);
 	}
 	
@@ -245,5 +245,41 @@ public class MPISkill extends Skill
 		DEBUG.OUT("rcvMesg "+rcvMesg);
 		
 		return rcvMesg;
+	}
+	
+	@action (
+			name = "testAlltoAll",
+			args = {@arg (
+					name = IMPISkill.MESG,
+					type = IType.INT,
+					doc = @doc ("mesg message"))},
+			doc = @doc (
+					value = "",
+					returns = "",
+					examples = { @example ("") }))
+	public void testAlltoAll(final IScope scope) 
+	{
+		final int msgSize = (int) scope.getArg(IMPISkill.MESG, IType.INT);
+		MPIFunctions.MPI_ALLTOALL(scope, msgSize);
+		
+		return;
+	}
+	
+	@action (
+			name = "testAlltoAllv",
+			args = {@arg (
+					name = IMPISkill.MESG,
+					type = IType.INT,
+					doc = @doc ("mesg message"))},
+			doc = @doc (
+					value = "",
+					returns = "",
+					examples = { @example ("") }))
+	public void testAlltoAllv(final IScope scope) 
+	{
+		final int msgSize = (int) scope.getArg(IMPISkill.MESG, IType.INT);
+		MPIFunctions.MPI_ALLTOALLV_test(scope, msgSize);
+		
+		return;
 	}
 }

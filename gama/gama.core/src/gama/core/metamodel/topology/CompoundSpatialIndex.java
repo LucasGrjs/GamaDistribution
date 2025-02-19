@@ -44,7 +44,7 @@ public class CompoundSpatialIndex implements ISpatialIndex.Compound {
 	
 	static
 	{
-		DEBUG.ON();
+		//DEBUG.ON();
 	}
 
 	/** The disposed. */

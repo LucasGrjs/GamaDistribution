@@ -80,14 +80,14 @@ public record SerialisedAgent(int index, String species, Map<String, Object> att
 	 */
 	public static SerialisedAgent of(final IAgent target, final boolean serializePopulations) {
 
-		DEBUG.OUT("SerialisedAgent of " + target);
+		//DEBUG.OUT("SerialisedAgent of " + target);
 		int index = target.getIndex();
 		String species = target.getSpeciesName();
 		Map<String, Object> attributes = filterAttributes(target, target instanceof IGridAgent,
 				target.getAttributes(true), serializePopulations);
 		Map<String, ISerialisedPopulation> populations = filterPopulations(target, target instanceof IGridAgent,
 				target.getAttributes(true), serializePopulations);
-		DEBUG.OUT("SerialisedAgent getUUID " + target.getUUID());
+		//DEBUG.OUT("SerialisedAgent getUUID " + target.getUUID());
 		SerialisedAgent result = new SerialisedAgent(index, species, attributes, populations, target.getUUID());
 		if (target instanceof SimulationAgent sa && !shouldSerializeHistory(sa)) {
 			result.attributes().remove(HISTORY_KEY);
@@ -129,7 +129,7 @@ public record SerialisedAgent(int index, String species, Map<String, Object> att
 	private static Map<String, ISerialisedPopulation> filterPopulations(final IAgent target, final boolean b,
 			final Map<String, Object> m, final boolean serializePopulations) {
 
-		DEBUG.OUT("filterPopulations ");
+		//DEBUG.OUT("filterPopulations ");
 		if (!serializePopulations) return Collections.EMPTY_MAP;
 		Map<String, ISerialisedPopulation> map = new HashMap<>();
 		for (Map.Entry<String, Object> entry : m.entrySet()) {
@@ -165,7 +165,7 @@ public record SerialisedAgent(int index, String species, Map<String, Object> att
 	public static Map<String, Object> filterAttributes(final IAgent agent, final boolean isGrid,
 			final Map<String, Object> m, final boolean serializePopulations) {
 
-		DEBUG.OUT("filterAttributes " + m);
+		//DEBUG.OUT("filterAttributes " + m);
 		Map<String, Object> map = new HashMap<>();
 		for (Map.Entry<String, Object> entry : m.entrySet()) {
 			String k = entry.getKey(); //
@@ -187,9 +187,9 @@ public record SerialisedAgent(int index, String species, Map<String, Object> att
 		if (!isGrid) { map.put(IKeyword.SHAPE, agent.getGeometry()); }
 		map.put(IKeyword.NAME, agent.getName());
 		map.put(IKeyword.LOCATION, agent.getLocation());
-		DEBUG.OUT("agent.getLocation() " + agent.getLocation());
-		DEBUG.OUT("filtered Attributes map result " + map);
-		DEBUG.OUT("cotnains,??? " + map.containsKey(IKeyword.LOCATION));
+		//DEBUG.OUT("agent.getLocation() " + agent.getLocation());
+		//DEBUG.OUT("filtered Attributes map result " + map);
+		//DEBUG.OUT("cotnains,??? " + map.containsKey(IKeyword.LOCATION));
 		return map;
 	}
 
@@ -324,33 +324,33 @@ public record SerialisedAgent(int index, String species, Map<String, Object> att
 			SimulationAgent mainSimulationAgent = (SimulationAgent) scope.getSimulation().getPopulation().get(0);
 			for(var auto : scope.getModel().getMicroSpecies())
 			{
-				DEBUG.OUT("current azdaza " + auto.getName());
-				DEBUG.OUT("current pop ccc" + auto.getClass());
+				//DEBUG.OUT("current azdaza " + auto.getName());
+				//DEBUG.OUT("current pop ccc" + auto.getClass());
 				if(auto instanceof GamlModelSpecies microModel)
 				{
-					DEBUG.OUT("microModel.getMicroSpeciesNames() : " + microModel.getMicroSpeciesNames());
+					//DEBUG.OUT("microModel.getMicroSpeciesNames() : " + microModel.getMicroSpeciesNames());
 					
 					if(microModel.getMicroSpeciesNames().contains(species))
 					{
 						p = microModel.getAllSpecies().get(species).getPopulation(scope);
-						DEBUG.OUT("ppoppdkzdoze " + p );
+						//DEBUG.OUT("ppoppdkzdoze " + p );
 					}
 				}
 			}
 		}
 		
-		DEBUG.OUT("size of pop pre : " + p.size());
+		//DEBUG.OUT("size of pop pre : " + p.size());
 
-		DEBUG.OUT("agent uuid to recreate : " + this.uuid);
+		//	DEBUG.OUT("agent uuid to recreate : " + this.uuid);
 		
 		if (p == null)
 			throw GamaRuntimeException.error("No population named" + species + " exist in this simulation", scope);
 
-		DEBUG.OUT("reacreate in this.attributes  : " + this.attributes);
-		DEBUG.OUT("reacreate in index : " + index);
+		//DEBUG.OUT("reacreate in this.attributes  : " + this.attributes);
+		//DEBUG.OUT("reacreate in index : " + index);
 		IAgent a = p.getOrCreateAgent(scope, index, this.attributes, this.uuid());
-		DEBUG.OUT("p.getOrCreateAgent " + a);
-		DEBUG.OUT("p.getOrCreateAgent new agent index" + a.getIndex());
+		//DEBUG.OUT("p.getOrCreateAgent " + a);
+		//DEBUG.OUT("p.getOrCreateAgent new agent index" + a.getIndex());
 		restoreAs(scope, a);
 		return a;
 	}

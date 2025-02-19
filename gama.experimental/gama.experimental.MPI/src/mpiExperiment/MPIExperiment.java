@@ -23,7 +23,7 @@ public class MPIExperiment extends ExperimentAgent
 {
 	static
 	{
-		DEBUG.ON();
+		//DEBUG.ON();
 		//DEBUG.FORCE_ON();
 	}
 	
@@ -31,7 +31,7 @@ public class MPIExperiment extends ExperimentAgent
 	{
 		super(s, index);
 		MPIFunctions.MPI_INIT_MULTIPLE_THREAD();
-		//setOuputForDistributedExperiment();   
+		setOuputForDistributedExperiment();   
 	}
 	
 	@Override

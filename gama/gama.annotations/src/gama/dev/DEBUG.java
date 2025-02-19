@@ -355,7 +355,7 @@ public class DEBUG {
 			return;
 		if (IS_ON(findCallingClassName())) {
 			LOG(s, true);
-			//System.out.println(s);
+			System.out.println(s);
 		}
 	}
 

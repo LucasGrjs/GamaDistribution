@@ -33,7 +33,7 @@ public class EndActionOneShotMigration implements IExecutable
 
 	static
 	{
-		DEBUG.ON();
+		//DEBUG.ON();
 	}
 	
 	IMap<Integer, List<?>> proxyToMigrate;

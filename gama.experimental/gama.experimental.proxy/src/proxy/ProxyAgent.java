@@ -42,7 +42,7 @@ public class ProxyAgent implements IAgent
 {
 	static
 	{
-		DEBUG.ON();
+		//DEBUG.ON();
 	}
 
 	protected final ProxyPopulation population;
